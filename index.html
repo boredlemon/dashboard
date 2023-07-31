@@ -129,6 +129,7 @@
             document.getElementById('user-info').style.display = 'block';
             document.getElementById('avatar').src = `https://cdn.discordapp.com/avatars/${response.id}/${avatar}.png`;
             document.getElementById('username').innerText = `${username}#${discriminator}`;
+            document.getElementById('login').style.display = 'none'; // Hide the login button
           })
           .catch((error) => console.error('API Error:', error));
       }

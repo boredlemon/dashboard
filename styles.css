@@ -123,11 +123,11 @@ main {
 
 /* User Info Styling */
 #user-info {
-  display: none;
+  display: flex;
+  align-items: center;
   position: absolute;
   top: 10px; /* Adjust the value to position the user info vertically */
   right: 180px; /* Adjust the value to position the user info horizontally */
-  align-items: center;
 }
 
 #user-info img {
