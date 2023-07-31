@@ -38,18 +38,24 @@
         }
 
         fetch('https://discord.com/api/users/@me', {
-          headers: {
-            authorization: `${tokenType} ${accessToken}`,
-          },
-        })
-          .then((result) => result.json())
-          .then((response) => {
-            const { username, discriminator, avatar } = response;
-            document.getElementById('user-info').style.display = 'block';
-            document.getElementById('avatar').src = `https://cdn.discordapp.com/avatars/${response.id}/${avatar}.png`;
-            document.getElementById('username').innerText = `${username}#${discriminator}`;
-          })
-          .catch(console.error);
+  headers: {
+    Authorization: `${tokenType} ${accessToken}`,
+  },
+})
+  .then((result) => {
+    if (!result.ok) {
+      throw new Error(`${result.status}: ${result.statusText}`);
+    }
+    return result.json();
+  })
+  .then((response) => {
+    console.log(response);
+    const { username, discriminator, avatar } = response;
+    document.getElementById('user-info').style.display = 'block';
+    document.getElementById('avatar').src = `https://cdn.discordapp.com/avatars/${response.id}/${avatar}.png`;
+    document.getElementById('username').innerText = `${username}#${discriminator}`;
+  })
+  .catch((error) => console.error('API Error:', error));
       }
     };
   </script>
