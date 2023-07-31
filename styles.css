@@ -121,6 +121,30 @@ main {
   background-color: #704214; /* Darker Brown Color on Hover */
 }
 
+/* User Info Styling */
+#user-info {
+  display: none;
+  position: absolute;
+  top: 10px; /* Adjust the value to position the user info vertically */
+  right: 180px; /* Adjust the value to position the user info horizontally */
+  align-items: center;
+}
+
+#user-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  margin-right: 10px;
+}
+
+#user-info span {
+  color: #fff;
+  font-size: 16px;
+  text-shadow: 0 0 5px #7289da;
+}
+
 /* Header Content */
 .header-content {
   display: flex;
