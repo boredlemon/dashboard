@@ -1,12 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f0f0f0;
+  background-color: #282b30; /* Discord Grayish Background Color */
+  color: #fff; /* Text Color */
 }
 
 header {
-  background-color: #7289da;
+  background-color: #7289da; /* Discord Blue Color */
   color: #fff;
   padding: 20px;
   text-align: center;
@@ -17,22 +20,6 @@ h1 {
   font-size: 24px;
 }
 
-#login {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #7289da;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-#login:hover {
-  background-color: #5a68a4;
-}
-
 main {
   padding: 20px;
 }
@@ -40,7 +27,7 @@ main {
 #user-info {
   display: flex;
   align-items: center;
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 #avatar {
@@ -53,5 +40,390 @@ main {
 #username {
   font-size: 18px;
   font-weight: bold;
-  color: #333;
 }
+
+#about-bot {
+  text-align: center;
+  padding: 20px;
+  background-color: #2c2f33; /* Discord Darker Gray Color */
+  border-radius: 8px;
+}
+
+#about-bot p {
+  font-size: 16px;
+  margin: 0;
+}
+
+#bot-images {
+  text-align: center;
+}
+
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.bot-image {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  margin: 5px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Bot Icon as a Circle */
+.bot-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 1px; /* Adjust the value to move the bot icon up */
+  left: 100px; /* Adjust the value to move the bot icon left */
+}
+
+/* "DolphinNotBot" Text Styling */
+.DolphinNotBot {
+  font-size: 20px;
+  text-shadow: 0 0 10px #7289da, 0 0 20px #7289da, 0 0 30px #7289da;
+  position: absolute;
+  top: 15px; /* Adjust the value to move the bot icon up */
+  left: 160px; /* Adjust the value to move the bot icon left */
+}
+
+/* Logo Text Styling */
+.neon-text {
+  font-size: 36px;
+  text-shadow: 0 0 10px #7289da, 0 0 20px #7289da, 0 0 30px #7289da;
+}
+
+/* Button Styling */
+.loginbutton {
+  display: inline;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #964B00; /* Brown Color */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none; /* Remove underline for links */
+  margin-left: 1200px; /* Adjust the value to move the login button left */
+  margin-top: -10px; /* Adjust the value to move the login button down */
+}
+
+.loginbutton:hover {
+  background-color: #704214; /* Darker Brown Color on Hover */
+}
+
+/* Header Content */
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+/* Left Content (Bot Icon and Text) */
+.left-content {
+  display: flex;
+  align-items: center;
+}
+
+/* Adjust the bot icon and DolphinNotBot text */
+.bot-icon,
+.DolphinNotBot {
+  margin-right: 10px;
+}
+
+/* Right Content (Dropdown Menu and Login Button) */
+.right-content {
+  display: flex;
+  align-items: center;
+}
+
+/* Dropdown Menu Styling */
+.dropdown {
+  position: relative;
+}
+
+.dropbtn {
+  background-color: #964B00; /* Brown Color */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px 20px;
+  text-decoration: none; /* Remove underline for links */
+  position: absolute;
+  top: 10px; /* Adjust the value to move the bot icon up */
+  left: 400px; /* Adjust the value to move the bot icon left */
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Discord Blurple Futuristic Button Styling */
+.guide-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #7289DA; /* Discord Blurple Color */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  text-shadow: 0 0 5px #333;
+  box-shadow: 0 5px 10px rgba(114, 137, 218, 0.5);
+  position: absolute;
+  top: 10px; /* Adjust the value to move the bot icon up */
+  left: 300px; /* Adjust the value to move the bot icon left */
+}
+
+.guide-button:hover {
+  background-color: #677BC4; /* Darker Blurple Color on Hover */
+}
+
+/* Discord Blurple Futuristic Button Styling */
+.support-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #7289DA; /* Discord Blurple Color */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  text-shadow: 0 0 5px #333;
+  box-shadow: 0 5px 10px rgba(114, 137, 218, 0.5);
+  position: absolute;
+  top: 10px; /* Adjust the value to move the bot icon up */
+  left: 400px; /* Adjust the value to move the bot icon left */
+}
+
+.support-button:hover {
+  background-color: #677BC4; /* Darker Blurple Color on Hover */
+}
+
+/* Styling for the top links */
+.top-links {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
+
+.top-link {
+  margin-right: 20px;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Login Button Styling */
+#login {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+/* Center the Subtitle */
+#subtitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 100px auto;
+  max-width: 800px;
+}
+
+/* Bigger Subtitle Text */
+.rainbow-text {
+  font-size: 36px;
+  background-image: linear-gradient(to right, #964B00, #4CAF50, #964B00);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Discord Logo Button Styling */
+.discord-logo-button {
+  display: inline-block;
+  background-image: url('https://discord.com/assets/28174a34e77bb5e5310ced9f95cb480b.png'); /* Discord logo image */
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.discord-logo-button:hover {
+  opacity: 0.8;
+}
+
+/* Login Button Styling */
+#login {
+  display: inline-block;
+  padding: 8px 16px; /* Smaller padding */
+  background-color: #964B00; /* Brown Color */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px; /* Smaller font size */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none; /* Remove underline for links */
+}
+
+#login:hover {
+  background-color: #704214; /* Darker Brown Color on Hover */
+}
+
+/* Modern Text Effect */
+.modern-text {
+  font-size: 24px;
+  color: #ffffff; /* Calm Text Color */
+  max-width: 800px;
+  margin-top: 20px;
+  line-height: 1.5;
+}
+
+#server-showcase {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.calm-text {
+  color: #333; /* Calm Text Color */
+}
+
+.server-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #4d400a; /* Light Gray Background */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.server {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #7289da; /* Discord Blue Color */
+  color: #fff;
+}
+
+.server-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+/* Futuristic Text Effect */
+.futuristic-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: #031f03;
+  text-transform: uppercase;
+}
+
+/* Neon Text Effect */
+.neon-text {
+  font-size: 24px;
+  color: #b57a1a;
+  text-shadow: 0 0 10px #99c56e,
+               0 0 20px #fff,
+               0 0 30px #fff,
+               0 0 40px #7289da, /* Discord Blue Color */
+               0 0 70px #7289da,
+               0 0 80px #7289da,
+               0 0 100px #7289da,
+               0 0 150px #7289da;
+}
+
+/* Neon Button Effect */
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #704909; /* Discord Blue Color */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  margin: 10px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: -500px; /* Adjust the value to move the bot icon up */
+}
+
+.button:hover {
+  background-color: #5a68a4; /* Darker shade of Discord Blue */
+}
+
+.button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: transform 0.3s;
+}
+
+.button:hover:before {
+  transform: translateX(100%);
+}
+
+/* Add additional styles and decorations as needed */

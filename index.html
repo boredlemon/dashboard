@@ -2,18 +2,82 @@
 <html>
 <head>
   <title>DolphinNotBot Dashboard</title>
+  <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico?">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
-    <h1>DolphinNotBot Dashboard</h1>
+    <div class="top-links">
+      <!-- Guides Link -->
+      <a href="https://example.com/guides" class="guide-button">Guides</a>
+      <!-- Support Server Link -->
+      <a href="https://discord.gg/K65AYbuDeF" class="support-button">Support Server!</a>
+    </div>
+
+      <h1 class="DolphinNotBot">DolphinNotBot</h1>
+        <img class="bot-icon" src="images/dolphworld.jpeg" alt="Bot Icon" />
+      </h1>
+
+    <div class="button-container">
+    <a id="login" style="display: none;" class="loginbutton" href="#">Login with Discord</a>
+  </div>
+    <a href="https://discord.com/api/oauth2/authorize?client_id=1125530042915631159&permissions=8&scope=bot" class="button">Add Bot</a>
+    <a href="https://discord.gg/K65AYbuDeF" class="button">Support Server</a>
   </header>
+  <main>
+    <div id="subtitle">
+      <h2 class="rainbow-text">Next version of discord bots</h2>
+      <p class="modern-text">DolphinNotBot revolutionizes your experience with a plethora of features and extensive customization options, offering a superior alternative to popular bots like MEE6.</p>
+    </div>
   <main>
     <div id="user-info" style="display: none;">
       <img id="avatar" src="" alt="User Avatar" />
       <span id="username"></span>
     </div>
-    <a id="login" style="display: none;" href="#">Identify Yourself</a>
+    <div id="about-bot">
+      <h2>About DolphinNotBot</h2>
+      <p class="futuristic-text">This is the official site for DolphinNotBot! Website and bot coded by Dolphin#6086!!!</p>
+      <h3 class="neon-text">Features</h3>
+      <ul>
+        <p>/rank and /leaderboard</p>
+        <p>/ban, /kick, /timeout</p>
+        <p>NEW COMMANDS WILL BE COMING OUT SO STAY TUNED!!!</p>
+        <!-- Add more features here -->
+      </ul>
+      <h3 class="neon-text">Commands</h3>
+      <p>the /rank is the most powerful command as of now!</p>
+      <!-- Add more commands here -->
+    </div>
+    <div id="bot-images">
+      <h2 class="neon-text">Bot Images</h2>
+      <div class="image-container">
+      <img src="images/Screen Shot 2023-07-31 at 1.54.40 PM.png" alt="Tools Image">
+      <img src="images/Screen Shot 2023-07-31 at 1.54.48 PM.png" alt="Tools Image">
+      <img src="images/Screen Shot 2023-07-31 at 1.55.18 PM.png" alt="Tools Image">
+      </div>
+    </div>
+    <p class="rainbow-text">Used by MRKRABBBBS.</p>
+    <p class="rainbow-text">DolphinNotBot is widely embraced in many servers, including those frequented by your mum.</p>
+
+    <!-- Server Showcase Section -->
+    <div id="server-showcase">
+      <h2 class="neon-text">Server Showcase</h2>
+      <div class="server-list">
+        <div class="server">
+          <img src="images/dolphworld.jpeg" alt="DolphWorld" class="server-icon">
+          <p>DolphWorld</p>
+        </div>
+        <div class="server">
+          <img src="images/Discordbottesing.gif" alt="Server 2" class="server-icon">
+          <p>Discord bot tesing</p>
+        </div>
+        <div class="server">
+          <img src="images/testingserver.png" alt="Server 3" class="server-icon">
+          <p>Testing Server</p>
+        </div>
+        <!-- Add more servers here -->
+      </div>
+    </div>
   </main>
   <script>
     function generateRandomString() {
