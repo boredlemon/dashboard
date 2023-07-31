@@ -1,23 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>DolphinNotBot Dashboard</title>
-  </head>
-  <body>
-    <div id="user-info" style="display: none;">
-      <img id="avatar" src="" alt="User Avatar" />
-      <span id="username"></span>
-    </div>
-    <a id="login" style="display: none;" href="https://discord.com/api/oauth2/authorize?client_id=1125530042915631159&redirect_uri=https%3A%2F%2Fdolphinnotfound.github.io%2FDolphinNotBot-dashboard%2F&response_type=code&scope=identify">
-      Identify Yourself
-    </a>
-    <script>
-      window.onload = () => {
-        const fragment = new URLSearchParams(window.location.hash.slice(1));
-        const [accessToken, tokenType] = [fragment.get('access_token'), fragment.get('token_type')];
+<head>
+  <title>DolphinNotBot Dashboard</title>
+</head>
+<body>
+  <div id="user-info" style="display: none;">
+    <img id="avatar" src="" alt="User Avatar" />
+    <span id="username"></span>
+  </div>
+  <a id="login" style="display: none;" href="#">Identify Yourself</a>
+  <script>
+    function generateRandomString() {
+      let randomString = '';
+      const randomNumber = Math.floor(Math.random() * 10);
 
-        if (!accessToken) {
-          return (document.getElementById('login').style.display = 'block');
+      for (let i = 0; i < 20 + randomNumber; i++) {
+        randomString += String.fromCharCode(33 + Math.floor(Math.random() * 94));
+      }
+
+      return randomString;
+    }
+
+    window.onload = () => {
+      const fragment = new URLSearchParams(window.location.hash.slice(1));
+      const [accessToken, tokenType, state] = [fragment.get('access_token'), fragment.get('token_type'), fragment.get('state')];
+
+      if (!accessToken) {
+        const randomString = generateRandomString();
+        localStorage.setItem('oauth-state', randomString);
+        document.getElementById('login').href = `https://discord.com/oauth2/authorize?client_id=1125530042915631159&redirect_uri=https%3A%2F%2Fdolphinnotfound.github.io%2FDolphinNotBot-dashboard%2F&response_type=code&scope=identify`;
+        document.getElementById('login').style.display = 'block';
+      } else {
+        // Check state parameter to prevent CSRF attacks
+        if (localStorage.getItem('oauth-state') !== atob(decodeURIComponent(state))) {
+          console.log('You may have been clickjacked!');
+          return;
         }
 
         fetch('https://discord.com/api/users/@me', {
@@ -33,7 +50,8 @@
             document.getElementById('username').innerText = `${username}#${discriminator}`;
           })
           .catch(console.error);
-      };
-    </script>
-  </body>
+      }
+    };
+  </script>
+</body>
 </html>
