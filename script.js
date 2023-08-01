@@ -9,7 +9,7 @@ function generateRandomString() {
   return randomString;
 }
 
-window.onload = () => {
+document.addEventListener("DOMContentLoaded", () => {
   const fragment = new URLSearchParams(window.location.hash.slice(1));
   const [accessToken, tokenType, state] = [
     fragment.get('access_token'),
@@ -42,7 +42,7 @@ window.onload = () => {
         return result.json();
       })
       .then((response) => {
-        console.log(response); // Add this line to check the API response.
+        console.log(response);
         const { username, discriminator, avatar } = response;
         document.getElementById('user-info').style.display = 'block';
         document.getElementById('avatar').src = `https://cdn.discordapp.com/avatars/${response.id}/${avatar}.png`;
@@ -50,4 +50,4 @@ window.onload = () => {
       })
       .catch((error) => console.error('API Error:', error));
   }
-};
+});
