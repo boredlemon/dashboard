@@ -34,7 +34,7 @@ window.onload = () => {
     .then(response => {
       const { username, discriminator, avatar } = response;
       document.getElementById('info').innerText = ''; // Clear existing content
-      document.getElementById('info').innerText += ` ${username}#${discriminator} ${avatar}`;
+      document.getElementById('info').innerText += ` ${username}#${discriminator} https://cdn.discordapp.com/avatars/${response.id}/${avatar}.png`;
     })
     .catch(console.error);
 }
