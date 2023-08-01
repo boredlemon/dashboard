@@ -6,7 +6,7 @@ function generateRandomString() {
     randomString += String.fromCharCode(33 + Math.floor(Math.random() * 94));
   }
 
-  return randomString;   
+  return randomString;
 }
 
 window.onload = () => {
@@ -34,6 +34,9 @@ window.onload = () => {
     .then(response => {
       const { username, discriminator } = response;
       document.getElementById('info').innerText += ` ${username}#${discriminator}`;
+      
+      // Redirect to dashboard.html after logging in
+      window.location.href = 'dashboard.html';
     })
     .catch(console.error);
-}
+};
