@@ -34,8 +34,12 @@ window.onload = () => {
     .then(response => {
       const { username, discriminator, avatar } = response;
       document.getElementById('info').innerText = ''; // Clear existing content
-
       document.getElementById('info').innerText += ` ${username}#${discriminator}`;
+      document.getElementById('info').appendChild(usernameTag);
+
+      usernameTag.addEventListener('click', () => {
+        window.location.href = 'dashboard.html';
+      });
     })
     .catch(console.error);
 }
