@@ -33,12 +33,8 @@ window.onload = () => {
     .then(result => result.json())
     .then(response => {
       const { username, discriminator, avatar } = response;
-      const userAvatar = document.createElement('img');
-      userAvatar.src = `https://cdn.discordapp.com/avatars/${response.id}/${avatar}.png`;
-      userAvatar.alt = 'User Avatar';
-      document.getElementById('info').innerText = ''; // Clear existing content
-      document.getElementById('info').appendChild(userAvatar);
       document.getElementById('info').innerText += ` ${username}#${discriminator}`;
+      document.getElementById('avatar').src = `https://cdn.discordapp.com/avatars/${response.id}/${avatar}.png`;
     })
     .catch(console.error);
 }
