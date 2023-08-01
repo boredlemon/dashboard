@@ -44,6 +44,7 @@ window.onload = () => {
       .then((response) => {
         console.log(response); // Add this line to check the API response.
         const { username, discriminator, avatar } = response;
+        document.getElementById('info').innerText += ` ${username}#${discriminator}`;
         document.getElementById('user-info').style.display = 'block';
         document.getElementById('avatar').src = `https://cdn.discordapp.com/avatars/${response.id}/${avatar}.png`;
         document.getElementById('username').innerText = `${username}#${discriminator}`;
