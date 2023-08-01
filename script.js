@@ -35,10 +35,6 @@ window.onload = () => {
       const { username, discriminator, avatar } = response;
       document.getElementById('info').innerText = ''; // Clear existing content
 
-      const userAvatar = document.createElement('img');
-      userAvatar.src = `https://cdn.discordapp.com/avatars/${response.id}/${avatar}.png`;
-      userAvatar.alt = 'User Avatar';
-      
       document.getElementById('info').innerText += ` ${username}#${discriminator}`;
     })
     .catch(console.error);
