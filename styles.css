@@ -35,6 +35,9 @@ main {
   height: 40px;
   border-radius: 50%;
   margin-right: 10px;
+  position: absolute;
+  top: 15px; /* Adjust the value to move the bot icon up */
+  left: -160px; /* Adjust the value to move the bot icon left */
 }
 
 #username {
