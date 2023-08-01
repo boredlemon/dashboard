@@ -35,7 +35,11 @@ window.onload = () => {
       const { username, discriminator, avatar } = response;
       document.getElementById('info').innerText = ''; // Clear existing content
 
-      document.getElementById('info').innerText += `${username}#${discriminator}`;
+      const clickableUsername = document.createElement('a');
+      clickableUsername.href = `./dashboard.html`; // Replace 'dashboard.html' with the actual relative path to your dashboard.html
+      clickableUsername.textContent = `${username}#${discriminator}`;
+
+      document.getElementById('info').appendChild(clickableUsername);
     })
     .catch(console.error);
 }
