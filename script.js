@@ -9,35 +9,30 @@ function generateRandomString() {
   return randomString;
 }
 
-function displayUserInfo(response) {
-  const { username, discriminator, avatar } = response;
-  document.getElementById('user-info').style.display = 'block';
-  document.getElementById('avatar').src = `https://cdn.discordapp.com/avatars/${response.id}/${avatar}.png`;
-  document.getElementById('username').innerText = `${username}#${discriminator}`;
-}
-
-document.addEventListener('DOMContentLoaded', () => {
+window.onload = () => {
   const fragment = new URLSearchParams(window.location.hash.slice(1));
-  const accessToken = fragment.get('access_token');
+  const [accessToken, tokenType, state] = [
+    fragment.get('access_token'),
+    fragment.get('token_type'),
+    fragment.get('state'),
+  ];
 
   if (!accessToken) {
     const randomString = generateRandomString();
     localStorage.setItem('oauth-state', randomString);
     document.getElementById('login').href =
-      'https://discord.com/oauth2/authorize?client_id=1125530042915631159&redirect_uri=https%3A%2F%2Fdolphinnotfound.github.io%2FDolphinNotBot-dashboard%2F&response_type=token&scope=identify';
+      'https://discord.com/oauth2/authorize?client_id=1125530042915631159&redirect_uri=https%3A%2F%2Fdolphinnotfound.github.io%2FDolphinNotBot-dashboard%2F&response_type=token&scope=identify'; // Add scope=identify
     document.getElementById('login').style.display = 'block';
   } else {
-    const state = localStorage.getItem('oauth-state');
-    const decodedState = atob(decodeURIComponent(fragment.get('state')));
-
-    if (state !== decodedState) {
+    // Check state parameter to prevent CSRF attacks
+    if (localStorage.getItem('oauth-state') !== atob(decodeURIComponent(state))) {
       console.log('You may have been clickjacked!');
       return;
     }
 
     fetch('https://discord.com/api/users/@me', {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `${tokenType} ${accessToken}`, // Fix the Authorization header
       },
     })
       .then((result) => {
@@ -47,9 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return result.json();
       })
       .then((response) => {
-        console.log(response);
-        displayUserInfo(response);
+        console.log(response); // Add this line to check the API response.
+        const { username, discriminator, avatar } = response;
+        document.getElementById('user-info').style.display = 'block';
+        document.getElementById('avatar').src = `https://cdn.discordapp.com/avatars/${response.id}/${avatar}.png`;
+        document.getElementById('username').innerText = `${username}#${discriminator}`;
       })
       .catch((error) => console.error('API Error:', error));
   }
-});
+};
