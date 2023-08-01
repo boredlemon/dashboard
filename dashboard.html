@@ -13,7 +13,9 @@
     <!-- The content related to the dashboard goes here -->
     <div id="subtitle">
       <!-- The rest of the content related to the dashboard -->
-      <div id="server-showcase">
+
+      <!-- Add a container for the server showcase -->
+      <div id="server-showcase-container" style="display: none;">
         <h2 class="neon-text">Server Showcase</h2>
         <div class="server-list" id="server-list">
           <!-- The server list will be generated using JavaScript -->
@@ -63,7 +65,9 @@
       }
 
       const serverList = await fetchServers(accessToken);
-      const serverShowcase = document.getElementById('server-showcase');
+      const serverShowcase = document.getElementById('server-list');
+
+      serverShowcase.innerHTML = ''; // Clear existing content
 
       serverList.forEach((server) => {
         const serverName = document.createElement('p');
@@ -81,12 +85,16 @@
         localStorage.setItem('oauth-state', randomString);
 
         document.getElementById('login').href += `&state=${encodeURIComponent(btoa(randomString))}`;
-        return document.getElementById('login').style.display = 'block';
+        return (document.getElementById('login').style.display = 'block');
       }
 
       if (localStorage.getItem('oauth-state') !== atob(decodeURIComponent(state))) {
         return console.log('You may have been click-jacked!');
       }
+
+      // If the user is logged in, display the server showcase container
+      const serverShowcaseContainer = document.getElementById('server-showcase-container');
+      serverShowcaseContainer.style.display = 'block';
 
       displayServers();
     };
