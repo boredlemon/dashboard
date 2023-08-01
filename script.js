@@ -34,9 +34,6 @@ window.onload = () => {
     .then(response => {
       const { username, discriminator } = response;
       document.getElementById('info').innerText += ` ${username}#${discriminator}`;
-      
-      // Redirect to dashboard.html after logging in
-      window.location.href = 'dashboard.html';
     })
     .catch(console.error);
-};
+}
