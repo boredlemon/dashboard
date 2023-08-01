@@ -6,34 +6,34 @@ function generateRandomString() {
     randomString += String.fromCharCode(33 + Math.floor(Math.random() * 94));
   }
 
-  return randomString;
+  return randomString;   
 }
 
-function redirectToDashboard(accessToken) {
-  // Function to redirect the user to dashboard.html with the access token
-  const dashboardUrl = `dashboard.html#access_token=${accessToken}`;
-  window.location.href = dashboardUrl;
-}
-
-function fetchUserInfo() {
+window.onload = () => {
   const fragment = new URLSearchParams(window.location.hash.slice(1));
-  const [accessToken, tokenType, state] = [
-    fragment.get('access_token'),
-    fragment.get('token_type'),
-    fragment.get('state'),
-  ];
+  const [accessToken, tokenType, state] = [fragment.get('access_token'), fragment.get('token_type'), fragment.get('state')];
 
   if (!accessToken) {
     const randomString = generateRandomString();
     localStorage.setItem('oauth-state', randomString);
 
-    document.getElementById('login').href =
-      `https://discord.com/oauth2/authorize?client_id=1125530042915631159&redirect_uri=https%3A%2F%2Fdolphinnotfound.github.io%2FDolphinNotBot-dashboard%2F&response_type=token&scope=identify%20guilds&state=${encodeURIComponent(btoa(randomString))}`;
-    document.getElementById('login').style.display = 'block';
-  } else {
-    // If access token is found, fetch user information and redirect to the dashboard
-    redirectToDashboard(accessToken);
+    document.getElementById('login').href += `&state=${encodeURIComponent(btoa(randomString))}`;
+    return document.getElementById('login').style.display = 'block';
   }
-}
 
-document.getElementById('login').addEventListener('click', fetchUserInfo);
+  if (localStorage.getItem('oauth-state') !== atob(decodeURIComponent(state))) {
+    return console.log('You may have been click-jacked!');
+  }
+
+  fetch('https://discord.com/api/users/@me', {
+    headers: {
+      authorization: `${tokenType} ${accessToken}`,
+    },
+  })
+    .then(result => result.json())
+    .then(response => {
+      const { username, discriminator } = response;
+      document.getElementById('info').innerText += ` ${username}#${discriminator}`;
+    })
+    .catch(console.error);
+}
