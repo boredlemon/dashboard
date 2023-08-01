@@ -7,12 +7,10 @@
 </head>
 <body>
   <header>
-    <!-- Your header content here -->
+    aaaa
   </header>
   <main>
-    <!-- The content related to the dashboard goes here -->
     <div id="subtitle">
-      <!-- The rest of the content related to the dashboard -->
       <div id="server-showcase">
         <h2 class="neon-text">Server Showcase</h2>
         <div class="server-list" id="server-list">
@@ -47,7 +45,7 @@
       const accessToken = fragment.get('access_token');
 
       if (!accessToken) {
-        console.log('Access token not found. Please log in first.');
+        console.error('Access token not found. Please log in first.');
         return;
       }
 
@@ -55,17 +53,9 @@
       const serverShowcase = document.getElementById('server-list');
 
       serverList.forEach((server) => {
-        const serverDiv = document.createElement('div');
-        serverDiv.className = 'server';
-        const serverIcon = document.createElement('img');
-        serverIcon.src = `https://cdn.discordapp.com/icons/${server.id}/${server.icon}.png`;
-        serverIcon.alt = server.name;
-        serverIcon.className = 'server-icon';
         const serverName = document.createElement('p');
         serverName.innerText = server.name;
-        serverDiv.appendChild(serverIcon);
-        serverDiv.appendChild(serverName);
-        serverShowcase.appendChild(serverDiv);
+        serverShowcase.appendChild(serverName);
       });
     }
 
