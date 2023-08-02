@@ -7,7 +7,9 @@
 </head>
 <body>
   <header>
-    <!-- Welcome to your DolphinNotBot dashboard! -->
+    <div id="servers">
+      Welcome to your DolphinNotBot dashboard!
+    </div>
   </header>
   <main>
     <!-- The content related to the dashboard goes here -->
@@ -24,54 +26,45 @@
     </div>
   </main>
   <script>
-    async function fetchServers(accessToken) {
-      try {
-        const response = await fetch('https://discord.com/api/users/@me/guilds', {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+    function generateRandomString() {
+			let randomString = '';
+			const randomNumber = Math.floor(Math.random() * 10);
 
-        if (!response.ok) {
-          throw new Error(`${response.status}: ${response.statusText}`);
-        }
+			for (let i = 0; i < 20 + randomNumber; i++) {
+				randomString += String.fromCharCode(33 + Math.floor(Math.random() * 94));
+			}
 
-        const serverList = await response.json();
-        return serverList;
-      } catch (error) {
-        console.error('API Error:', error);
-        return [];
-      }
-    }
+			return randomString;
+		}
 
-    async function displayServers() {
-      const fragment = new URLSearchParams(window.location.hash.slice(1));
-      const accessToken = fragment.get('access_token');
+		window.onload = () => {
+			const fragment = new URLSearchParams(window.location.hash.slice(1));
+			const [accessToken, tokenType, state] = [fragment.get('access_token'), fragment.get('token_type'), fragment.get('state')];
 
-      if (!accessToken) {
-        console.error('Access token not found. Please log in first.');
-        return;
-      }
+			if (!accessToken) {
+				const randomString = generateRandomString();
+				localStorage.setItem('oauth-state', randomString);
 
-      const serverList = await fetchServers(accessToken);
-      const serverShowcase = document.getElementById('server-list');
+				document.getElementById('login').href += `&state=${encodeURIComponent(btoa(randomString))}`;
+				return document.getElementById('login').style.display = 'block';
+			}
 
-      serverShowcase.innerHTML = ''; // Clear existing content
+			if (localStorage.getItem('oauth-state') !== atob(decodeURIComponent(state))) {
+				return console.log('You may have been click-jacked!');
+			}
 
-      serverList.forEach((server) => {
-        const serverName = document.createElement('p');
-        serverName.innerText = `${server.name}`;
-        serverShowcase.appendChild(serverName);
-      });
-
-      // If the user is logged in and has servers, display the server showcase container
-      const serverShowcaseContainer = document.getElementById('server-showcase-container');
-      serverShowcaseContainer.style.display = 'block';
-    }
-
-    window.onload = () => {
-      displayServers();
-    };
+			fetch('https://discord.com/api/users/@me/guilds', {
+				headers: {
+					authorization: `${tokenType} ${accessToken}`,
+				},
+			})
+				.then(result => result.json())
+				.then(response => {
+					const { username, discriminator } = response;
+					document.getElementById('servers').innerText += ` ${username}#${discriminator}`;
+				})
+				.catch(console.error);
+		}
   </script>
 </body>
 </html>
