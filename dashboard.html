@@ -51,18 +51,14 @@
       return urlParams.get(name);
     }
 
-    function fetchAndDisplayUserData(accessToken, tokenType, state) {
-      if (!accessToken || !tokenType || !state) {
+    function fetchAndDisplayUserData(accessToken) {
+      if (!accessToken) {
         return console.log('Not logged in.');
       }
 
-      if (localStorage.getItem('oauth-state') !== atob(decodeURIComponent(state))) {
-        return console.log('You may have been click-jacked!');
-      }
-
-      fetch('https://discord.com/api/users/@me/guilds', {
+      fetch('https://discord.com/api/users/@me', {
         headers: {
-          authorization: `${tokenType} ${accessToken}`,
+          authorization: `Bearer ${accessToken}`,
         },
       })
         .then((result) => result.json())
@@ -72,26 +68,22 @@
           // Display user stats
           document.getElementById('user-username').innerText += username;
           document.getElementById('user-tag').innerText += discriminator;
-          document.getElementById('user-servers').innerText += response.length;
-
-          // Show the server showcase container
-          document.getElementById('server-showcase-container').style.display = 'block';
         })
         .catch(console.error);
     }
 
     window.onload = () => {
-      const accessToken = getURLParameter('access_token');
-      const tokenType = getURLParameter('token_type');
-      const state = getURLParameter('state');
+      const accessToken = getURLParameter('code');
 
-      if (!accessToken || !tokenType || !state) {
+      if (!accessToken) {
         const randomString = generateRandomString();
         localStorage.setItem('oauth-state', randomString);
 
-        window.location.href = `https://discord.com/api/oauth2/authorize?client_id=1125530042915631159&redirect_uri=https%3A%2F%2Fdolphinnotfound.github.io%2FDolphinNotBot-dashboard%2Fdashboard.html&response_type=code&scope=identify%20guilds=${encodeURIComponent(btoa(randomString))}`;
+        window.location.href = `https://discord.com/api/oauth2/authorize?client_id=1125530042915631159&redirect_uri=https%3A%2F%2Fdolphinnotfound.github.io%2FDolphinNotBot-dashboard%2Fdashboard.html&response_type=code&scope=identify%20guilds&state=${encodeURIComponent(
+          btoa(randomString)
+        )}`;
       } else {
-        fetchAndDisplayUserData(accessToken, tokenType, state);
+        fetchAndDisplayUserData(accessToken);
       }
     };
   </script>
