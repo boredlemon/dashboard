@@ -12,7 +12,7 @@
     </div>
   </header>
   <main>
-    <!-- The content related to the dashboard goes here -->
+    your stats
     <div id="subtitle">
       <!-- The rest of the content related to the dashboard -->
 
@@ -34,23 +34,6 @@
     </div>
   </main>
   <script>
-    function generateRandomString() {
-      let randomString = '';
-      const randomNumber = Math.floor(Math.random() * 10);
-
-      for (let i = 0; i < 20 + randomNumber; i++) {
-        randomString += String.fromCharCode(33 + Math.floor(Math.random() * 94));
-      }
-
-      return randomString;
-    }
-
-    function getURLParameter(name) {
-      const fragment = window.location.hash.slice(1);
-      const urlParams = new URLSearchParams(fragment);
-      return urlParams.get(name);
-    }
-
     function fetchAndDisplayUserData(accessToken) {
       if (!accessToken) {
         return console.log('Not logged in.');
@@ -72,19 +55,24 @@
         .catch(console.error);
     }
 
-    window.onload = () => {
-      const accessToken = getURLParameter('code');
+    function checkForAccessToken() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const accessToken = urlParams.get('code');
 
-      if (!accessToken) {
-        const randomString = generateRandomString();
-        localStorage.setItem('oauth-state', randomString);
+      if (accessToken) {
+        // Hide the login button
+        document.getElementById('login-button').style.display = 'none';
+        // Show the server showcase container
+        document.getElementById('server-showcase-container').style.display = 'block';
 
-        window.location.href = `https://discord.com/api/oauth2/authorize?client_id=1125530042915631159&redirect_uri=https%3A%2F%2Fdolphinnotfound.github.io%2FDolphinNotBot-dashboard%2Fdashboard.html&response_type=code&scope=identify%20guilds&state=${encodeURIComponent(
-          btoa(randomString)
-        )}`;
-      } else {
+        // Fetch and display user data using the access token
         fetchAndDisplayUserData(accessToken);
       }
+    }
+
+    window.onload = () => {
+      // Check if there is an access token in the URL
+      checkForAccessToken();
     };
   </script>
 </body>
