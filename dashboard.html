@@ -48,15 +48,17 @@
       return randomString;
     }
 
-    function fetchAndDisplayUserData() {
-      const fragment = new URLSearchParams(window.location.hash.slice(1));
-      const [accessToken, tokenType, state] = [
-        fragment.get('access_token'),
-        fragment.get('token_type'),
-        fragment.get('state'),
-      ];
+    function getURLParameter(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
 
-      if (!accessToken) {
+    function fetchAndDisplayUserData() {
+      const accessToken = getURLParameter('access_token');
+      const tokenType = getURLParameter('token_type');
+      const state = getURLParameter('state');
+
+      if (!accessToken || !tokenType || !state) {
         const randomString = generateRandomString();
         localStorage.setItem('oauth-state', randomString);
 
