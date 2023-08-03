@@ -12,7 +12,7 @@
     </div>
   </header>
   <main>
-    Your stats
+    <!-- The content related to the dashboard goes here -->
     <div id="subtitle">
       <!-- The rest of the content related to the dashboard -->
 
@@ -49,7 +49,8 @@
     }
 
     function getURLParameter(name) {
-      const urlParams = new URLSearchParams(window.location.search);
+      const fragment = window.location.hash.slice(1);
+      const urlParams = new URLSearchParams(fragment);
       return urlParams.get(name);
     }
 
