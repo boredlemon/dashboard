@@ -48,7 +48,7 @@
       return randomString;
     }
 
-    window.onload = () => {
+    function fetchAndDisplayUserData() {
       const fragment = new URLSearchParams(window.location.hash.slice(1));
       const [accessToken, tokenType, state] = [
         fragment.get('access_token'),
@@ -97,6 +97,10 @@
           document.getElementById('login-again').style.display = 'block';
         })
         .catch(console.error);
+    }
+
+    window.onload = () => {
+      fetchAndDisplayUserData();
 
       // "Login Again" button event listener
       document.getElementById('login-again').addEventListener('click', () => {
