@@ -24,47 +24,74 @@
         </div>
       </div>
     </div>
+
+    <!-- Display user stats here -->
+    <div id="user-stats">
+      <h2 class="neon-text">User Stats</h2>
+      <p id="user-username">Username: </p>
+      <p id="user-tag">Tag: </p>
+      <p id="user-servers">Servers Owned: </p>
+    </div>
   </main>
   <script>
     function generateRandomString() {
-			let randomString = '';
-			const randomNumber = Math.floor(Math.random() * 10);
+      let randomString = '';
+      const randomNumber = Math.floor(Math.random() * 10);
 
-			for (let i = 0; i < 20 + randomNumber; i++) {
-				randomString += String.fromCharCode(33 + Math.floor(Math.random() * 94));
-			}
+      for (let i = 0; i < 20 + randomNumber; i++) {
+        randomString += String.fromCharCode(33 + Math.floor(Math.random() * 94));
+      }
 
-			return randomString;
-		}
+      return randomString;
+    }
 
-		window.onload = () => {
-			const fragment = new URLSearchParams(window.location.hash.slice(1));
-			const [accessToken, tokenType, state] = [fragment.get('access_token'), fragment.get('token_type'), fragment.get('state')];
+    window.onload = () => {
+      const fragment = new URLSearchParams(window.location.hash.slice(1));
+      const [accessToken, tokenType, state] = [
+        fragment.get('access_token'),
+        fragment.get('token_type'),
+        fragment.get('state'),
+      ];
 
-			if (!accessToken) {
-				const randomString = generateRandomString();
-				localStorage.setItem('oauth-state', randomString);
+      if (!accessToken) {
+        const randomString = generateRandomString();
+        localStorage.setItem('oauth-state', randomString);
 
-				document.getElementById('login').href += `&state=${encodeURIComponent(btoa(randomString))}`;
-				return document.getElementById('login').style.display = 'block';
-			}
+        document.getElementById('login').href += `&state=${encodeURIComponent(
+          btoa(randomString)
+        )}`;
+        return document.getElementById('login').style.display = 'block';
+      }
 
-			if (localStorage.getItem('oauth-state') !== atob(decodeURIComponent(state))) {
-				return console.log('You may have been click-jacked!');
-			}
+      if (localStorage.getItem('oauth-state') !== atob(decodeURIComponent(state))) {
+        return console.log('You may have been click-jacked!');
+      }
 
-			fetch('https://discord.com/api/users/@me/guilds', {
-				headers: {
-					authorization: `${tokenType} ${accessToken}`,
-				},
-			})
-				.then(result => result.json())
-				.then(response => {
-					const { username, discriminator } = response;
-					document.getElementById('servers').innerText += ` ${username}#${discriminator}`;
-				})
-				.catch(console.error);
-		}
+      fetch('https://discord.com/api/users/@me/guilds', {
+        headers: {
+          authorization: `${tokenType} ${accessToken}`,
+        },
+      })
+        .then((result) => result.json())
+        .then((response) => {
+          const { username, discriminator } = response;
+
+          // Display user stats
+          document.getElementById('user-username').innerText += username;
+          document.getElementById('user-tag').innerText += discriminator;
+          document.getElementById('user-servers').innerText += response.length;
+
+          // Show the server showcase container
+          document.getElementById('server-showcase-container').style.display = 'block';
+
+          // Enable the user to access dashboard.html by clicking on their username
+          const clickableUsername = document.createElement('a');
+          clickableUsername.textContent = `${username}#${discriminator}`;
+          clickableUsername.href = './dashboard.html'; // Replace with the actual relative path to your dashboard.html
+          document.getElementById('user-stats').appendChild(clickableUsername);
+        })
+        .catch(console.error);
+    };
   </script>
 </body>
 </html>
