@@ -89,7 +89,7 @@
         const randomString = generateRandomString();
         localStorage.setItem('oauth-state', randomString);
 
-        window.location.href = `https://discord.com/oauth2/authorize?client_id=1125530042915631159&redirect_uri=https%3A%2F%2Fdolphinnotfound.github.io%2FDolphinNotBot-dashboard%2F&response_type=token&scope=identify%20guilds&state=${encodeURIComponent(btoa(randomString))}`;
+        window.location.href = `https://discord.com/api/oauth2/authorize?client_id=1125530042915631159&redirect_uri=https%3A%2F%2Fdolphinnotfound.github.io%2FDolphinNotBot-dashboard%2Fdashboard.html&response_type=code&scope=identify%20guilds=${encodeURIComponent(btoa(randomString))}`;
       } else {
         fetchAndDisplayUserData(accessToken, tokenType, state);
       }
