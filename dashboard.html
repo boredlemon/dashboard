@@ -32,9 +32,6 @@
       <p id="user-tag">Tag: </p>
       <p id="user-servers">Servers Owned: </p>
     </div>
-
-    <!-- "Login Again" button -->
-    <button id="login-again" style="display: none;">Login Again</button>
   </main>
   <script>
     function generateRandomString() {
@@ -54,19 +51,9 @@
       return urlParams.get(name);
     }
 
-    function fetchAndDisplayUserData() {
-      const accessToken = getURLParameter('access_token');
-      const tokenType = getURLParameter('token_type');
-      const state = getURLParameter('state');
-
+    function fetchAndDisplayUserData(accessToken, tokenType, state) {
       if (!accessToken || !tokenType || !state) {
-        const randomString = generateRandomString();
-        localStorage.setItem('oauth-state', randomString);
-
-        document.getElementById('login').href += `&state=${encodeURIComponent(
-          btoa(randomString)
-        )}`;
-        return (document.getElementById('login').style.display = 'block');
+        return console.log('Not logged in.');
       }
 
       if (localStorage.getItem('oauth-state') !== atob(decodeURIComponent(state))) {
@@ -89,27 +76,23 @@
 
           // Show the server showcase container
           document.getElementById('server-showcase-container').style.display = 'block';
-
-          // Enable the user to access dashboard.html by clicking on their username
-          const clickableUsername = document.createElement('a');
-          clickableUsername.textContent = `${username}#${discriminator}`;
-          clickableUsername.href = './dashboard.html'; // Replace with the actual relative path to your dashboard.html
-          document.getElementById('user-stats').appendChild(clickableUsername);
-
-          // Show the "Login Again" button when the user is logged in
-          document.getElementById('login-again').style.display = 'block';
         })
         .catch(console.error);
     }
 
     window.onload = () => {
-      fetchAndDisplayUserData();
+      const accessToken = getURLParameter('access_token');
+      const tokenType = getURLParameter('token_type');
+      const state = getURLParameter('state');
 
-      // "Login Again" button event listener
-      document.getElementById('login-again').addEventListener('click', () => {
-        localStorage.removeItem('oauth-state');
-        window.location.href = './index.html'; // Replace with the actual relative path to your index.html
-      });
+      if (!accessToken || !tokenType || !state) {
+        const randomString = generateRandomString();
+        localStorage.setItem('oauth-state', randomString);
+
+        window.location.href = `https://discord.com/oauth2/authorize?client_id=1125530042915631159&redirect_uri=https%3A%2F%2Fdolphinnotfound.github.io%2FDolphinNotBot-dashboard%2F&response_type=token&scope=identify%20guilds&state=${encodeURIComponent(btoa(randomString))}`;
+      } else {
+        fetchAndDisplayUserData(accessToken, tokenType, state);
+      }
     };
   </script>
 </body>
