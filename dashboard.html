@@ -32,6 +32,9 @@
       <p id="user-tag">Tag: </p>
       <p id="user-servers">Servers Owned: </p>
     </div>
+
+    <!-- "Login Again" button -->
+    <button id="login-again" style="display: none;">Login Again</button>
   </main>
   <script>
     function generateRandomString() {
@@ -60,7 +63,7 @@
         document.getElementById('login').href += `&state=${encodeURIComponent(
           btoa(randomString)
         )}`;
-        return document.getElementById('login').style.display = 'block';
+        return (document.getElementById('login').style.display = 'block');
       }
 
       if (localStorage.getItem('oauth-state') !== atob(decodeURIComponent(state))) {
@@ -89,8 +92,17 @@
           clickableUsername.textContent = `${username}#${discriminator}`;
           clickableUsername.href = './dashboard.html'; // Replace with the actual relative path to your dashboard.html
           document.getElementById('user-stats').appendChild(clickableUsername);
+
+          // Show the "Login Again" button when the user is logged in
+          document.getElementById('login-again').style.display = 'block';
         })
         .catch(console.error);
+
+      // "Login Again" button event listener
+      document.getElementById('login-again').addEventListener('click', () => {
+        localStorage.removeItem('oauth-state');
+        window.location.href = './index.html'; // Replace with the actual relative path to your index.html
+      });
     };
   </script>
 </body>
